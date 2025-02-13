@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link href="../assets/style.css" rel=stylesheet>
+        <link href="../assets/css/style.css" rel=stylesheet>
     </head>
     <body>
         <div id="formulaire">
