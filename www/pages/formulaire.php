@@ -24,7 +24,7 @@ if (!empty($_POST)) {
     $dbname = "phpsql";
     $username = "root";
     $password = "rootpassword";
-    $PDO = new PDO(dsn:"mysql:host=$host;dbname=$dbname", username:$username, password:$password);
+    $PDO = new PDO("mysql:host=$host;dbname=$dbname", "root", "rootpassword");
     $sqlc = $PDO->prepare("INSERT INTO connexion (username,pass) VALUES (?,?)");
     $sqlc->execute([$user,$hashedPassword]);
 }
