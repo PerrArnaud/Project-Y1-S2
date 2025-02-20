@@ -17,14 +17,14 @@
     </body>
 </html>
 <?php
+$host="lamp_mysql";
+$dbname = "phpsql";
+$userroot = "root";
+$passroot = "rootpassword";
+$PDO = new PDO("mysql:host=$host;dbname=$dbname", $userroot, $passroot);
 if (!empty($_POST)) {
     $hashedPassword=password_hash($_POST['secret'], PASSWORD_DEFAULT);
     $user = $_POST['username'];
-    $host="localhost";
-    $dbname = "phpsql";
-    $username = "root";
-    $password = "rootpassword";
-    $PDO = new PDO("mysql:host=$host;dbname=$dbname", "root", "rootpassword");
     $sqlc = $PDO->prepare("INSERT INTO connexion (username,pass) VALUES (?,?)");
     $sqlc->execute([$user,$hashedPassword]);
 }
