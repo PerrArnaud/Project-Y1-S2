@@ -17,15 +17,40 @@
     </body>
 </html>
 <?php
-$host="lamp_mysql";
+$host = "lamp_mysql";
 $dbname = "phpsql";
 $userroot = "root";
 $passroot = "rootpassword";
-$PDO = new PDO("mysql:host=$host;dbname=$dbname", $userroot, $passroot);
-if (!empty($_POST)) {
-    $hashedPassword=password_hash($_POST['secret'], PASSWORD_DEFAULT);
-    $user = $_POST['username'];
-    $sqlc = $PDO->prepare("INSERT INTO connexion (username,pass) VALUES (?,?)");
-    $sqlc->execute([$user,$hashedPassword]);
+
+try {
+    $PDO = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $userroot, $passroot);
+    $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST['username']) && !empty($_POST['secret'])) {
+        $user = $_POST['username'];
+        $password = $_POST['secret'];
+
+        // Requête préparée pour éviter les injections SQL
+        $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username");
+        $stmt->bindParam(':username', $user);
+        $stmt->execute();
+        
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row && password_verify($password, $row['pass'])) {
+            echo "<div id='result'>Connexion réussie !</div>";
+            // Ici, vous pouvez rediriger l'utilisateur vers une autre page
+            // header("Location: dashboard.php");
+            // exit();
+        } else {
+            echo "<div id='result'>Identifiant ou mot de passe incorrect.</div>";
+        }
+    } else {
+        echo "<div id='result'>Veuillez remplir tous les champs.</div>";
+    }
 }
 ?>
