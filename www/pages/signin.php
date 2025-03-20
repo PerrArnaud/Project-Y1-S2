@@ -20,6 +20,7 @@ if (!empty($_POST)) { //Si le formulaire n'est pas vide, envoi des champs dans l
 ?>
 <html>
     <head>
+        <title>Sign in</title>
         <link href="../assets/css/style.css" rel=stylesheet>
     </head>
     <body>

@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <html>
     <head>
+        <title>Log in</title>
         <link href="../assets/css/style.css" rel="stylesheet">
     </head>
     <body>
