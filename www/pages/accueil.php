@@ -1,14 +1,11 @@
 <?php
 session_start();
 
-// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['username'])) {
-    header("Location: http://localhost:8080/pages/login.php");
+    echo "Vous n'êtes pas connecté.";
     exit();
 }
 
-// Afficher le message de bienvenue
-echo "Bienvenue, " . htmlspecialchars($_SESSION['username']) . " (ID: " . $_SESSION['user_id'] . ") !";
+echo "Bienvenue, " . htmlspecialchars($_SESSION['username']) . "!";
 ?>
-
-<a href="logout.php">Se déconnecter</a>
+<a href="logout.php">Déconnexion</a>

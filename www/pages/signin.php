@@ -1,3 +1,21 @@
+<?php
+$host="lamp_mysql";
+$dbname = "phpsql";
+$userroot = "root";
+$passroot = "rootpassword";
+$PDO = new PDO("mysql:host=$host;dbname=$dbname", $userroot, $passroot);
+if (!empty($_POST)) { //Si le formulaire n'est pas vide, envoi des champs dans la base de données.
+    $hashedPassword=password_hash($_POST['secret'], PASSWORD_DEFAULT);
+    $user = $_POST['username'];
+    if ($_POST['secret'] == $_POST['confirm']){ //Vérification que le mot de passe entré est identique.
+        $sqlc = $PDO->prepare("INSERT INTO connexion (username,pass) VALUES (?,?)"); //Requête préparée pour éviter les injections SQL.
+        $sqlc->execute([$user,$hashedPassword]);
+    }
+    else{
+        echo("Le mot de passe n'est pas identique");
+    }
+}
+?>
 <html>
     <head>
         <link href="../assets/css/style.css" rel=stylesheet>
@@ -18,21 +36,3 @@
         </div>
     </body>
 </html>
-<?php
-$host="lamp_mysql";
-$dbname = "phpsql";
-$userroot = "root";
-$passroot = "rootpassword";
-$PDO = new PDO("mysql:host=$host;dbname=$dbname", $userroot, $passroot);
-if (!empty($_POST)) { //Si le formulaire n'est pas vide, envoi des champs dans la base de données.
-    $hashedPassword=password_hash($_POST['secret'], PASSWORD_DEFAULT);
-    $user = $_POST['username'];
-    if ($_POST['secret'] == $_POST['confirm']){ //Vérification que le mot de passe entré est identique.
-        $sqlc = $PDO->prepare("INSERT INTO connexion (username,pass) VALUES (?,?)"); //Requête préparée pour éviter les injections SQL.
-        $sqlc->execute([$user,$hashedPassword]);
-    }
-    else{
-        echo("Le mot de passe n'est pas identique");
-    }
-}
-?>

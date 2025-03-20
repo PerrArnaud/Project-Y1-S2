@@ -1,5 +1,6 @@
 <?php
-session_start();
+session_start(); // Démarrer la session
+
 $host = "lamp_mysql";
 $dbname = "phpsql";
 $userroot = "root";
@@ -17,15 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $_POST['username'];
         $password = $_POST['secret'];
 
-       
-        $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username"); //Requête préparée pour éviter les injections SQL.
+        $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username");
         $stmt->bindParam(':username', $user);
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row && password_verify($password, $row['pass'])) { //Vérifie si le mot de passe entré est le même que dans la base de données.
-            header('Location: http://localhost:8080/pages/accueil.php'); //Redirige l'utilisateur.
+        if ($row && password_verify($password, $row['pass'])) {
+            // Stocker l'identifiant en session
+            $_SESSION['username'] = $user;
+
+            // Redirection vers la page d'accueil
+            header('Location: http://localhost:8080/pages/accueil.php');
             exit();
         } else {
             echo "<div id='result'>Identifiant ou mot de passe incorrect.</div>";
@@ -37,19 +41,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <html>
     <head>
-        <link href="../assets/css/style.css" rel=stylesheet>
+        <link href="../assets/css/style.css" rel="stylesheet">
     </head>
     <body>
         <div id="formulaire">
-            <form   method="Post">
-                Identifiant </br>
-              <input type="text" name="username" id="username" required placeholder="Username" > </br> </br> 
-              Mot de passe <br>
-              <input  type="password" name="secret" id="secret" placeholder="Password" minlength="14" required> </br> </br> </br>
-              <input type="submit" value="Se connecter">
+            <form method="post">
+                Identifiant <br>
+                <input type="text" name="username" id="username" required placeholder="Username"> <br><br> 
+                Mot de passe <br>
+                <input type="password" name="secret" id="secret" placeholder="Password" minlength="14" required> <br><br><br>
+                <input type="submit" value="Se connecter">
             </form>
         </div>
-        <div id="result">
-        </div>
+        <div id="result"></div>
     </body>
 </html>
