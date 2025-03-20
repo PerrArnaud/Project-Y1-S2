@@ -10,7 +10,7 @@
 <html>
     <head>
         <title>Accueil</title>
-        <link href="../assets/css/style_a.css" rel="stylesheet"> <!-- Lien vers le fichier CSS externe -->
+        <link href="../assets/css/style_a.css" rel="stylesheet"> 
     </head>
     <body>
 
