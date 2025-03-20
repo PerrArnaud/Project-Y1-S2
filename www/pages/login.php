@@ -34,20 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $_POST['username'];
         $password = $_POST['secret'];
 
-        // Requête préparée pour éviter les injections SQL
-        $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username");
+       
+        $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username"); //Requête préparée pour éviter les injections SQL.
         $stmt->bindParam(':username', $user);
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row && password_verify($password, $row['pass'])) {
+        if ($row && password_verify($password, $row['pass'])) { //Vérifie si le mot de passe entré est le même que dans la base de données.
             echo "<div id='result'>Connexion réussie !</div>";
-            header('Location : http://localhost:8080/pages/accueil.php');
-            exit();
-            // Ici, vous pouvez rediriger l'utilisateur vers une autre page
-            // header("Location: dashboard.php");
-            // exit();
+            header('Location : http://localhost:8080/pages/accueil.php'); //Redirige l'utilisateur.
+            exit()
         } else {
             echo "<div id='result'>Identifiant ou mot de passe incorrect.</div>";
         }
