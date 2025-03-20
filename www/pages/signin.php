@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host="lamp_mysql";
 $dbname = "phpsql";
 $userroot = "root";
@@ -10,6 +11,7 @@ if (!empty($_POST)) { //Si le formulaire n'est pas vide, envoi des champs dans l
     if ($_POST['secret'] == $_POST['confirm']){ //Vérification que le mot de passe entré est identique.
         $sqlc = $PDO->prepare("INSERT INTO connexion (username,pass) VALUES (?,?)"); //Requête préparée pour éviter les injections SQL.
         $sqlc->execute([$user,$hashedPassword]);
+        header('Location: http://localhost:8080/pages/accueil.php'); 
     }
     else{
         echo("Le mot de passe n'est pas identique");
