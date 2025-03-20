@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($row && password_verify($password, $row['pass'])) { //Vérifie si le mot de passe entré est le même que dans la base de données.
             echo "<div id='result'>Connexion réussie !</div>";
             header('Location : http://localhost:8080/pages/accueil.php'); //Redirige l'utilisateur.
-            exit()
+            exit();
         } else {
             echo "<div id='result'>Identifiant ou mot de passe incorrect.</div>";
         }
