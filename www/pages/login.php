@@ -1,43 +1,43 @@
 <?php
-session_start(); // Démarrer la session
+    session_start(); // Démarrer la session
 
-$host = "lamp_mysql";
-$dbname = "phpsql";
-$userroot = "root";
-$passroot = "rootpassword";
+    $host = "lamp_mysql";
+    $dbname = "phpsql";
+    $userroot = "root";
+    $passroot = "rootpassword";
 
-try {
-    $PDO = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $userroot, $passroot);
-    $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST['username']) && !empty($_POST['secret'])) {
-        $user = $_POST['username'];
-        $password = $_POST['secret'];
-
-        $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username");
-        $stmt->bindParam(':username', $user);
-        $stmt->execute();
-        
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($row && password_verify($password, $row['pass'])) {
-            // Stocker l'identifiant en session
-            $_SESSION['username'] = $user;
-
-            // Redirection vers la page d'accueil
-            header('Location: http://localhost:8080/pages/accueil.php');
-            exit();
-        } else {
-            echo "<div id='result'>Identifiant ou mot de passe incorrect.</div>";
-        }
-    } else {
-        echo "<div id='result'>Veuillez remplir tous les champs.</div>";
+    try {
+        $PDO = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $userroot, $passroot);
+        $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("Erreur de connexion : " . $e->getMessage());
     }
-}
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!empty($_POST['username']) && !empty($_POST['secret'])) {
+            $user = $_POST['username'];
+            $password = $_POST['secret'];
+
+            $stmt = $PDO->prepare("SELECT pass FROM connexion WHERE username = :username");
+            $stmt->bindParam(':username', $user);
+            $stmt->execute();
+            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row && password_verify($password, $row['pass'])) {
+                // Stocker l'identifiant en session
+                $_SESSION['username'] = $user;
+
+                // Redirection vers la page d'accueil
+                header('Location: http://localhost:8080/pages/accueil.php');
+                exit();
+            } else {
+                echo "<div id='result'>Identifiant ou mot de passe incorrect.</div>";
+            }
+        } else {
+            echo "<div id='result'>Veuillez remplir tous les champs.</div>";
+        }
+    }
 ?>
 <html>
     <head>

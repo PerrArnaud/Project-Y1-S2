@@ -1,9 +1,9 @@
 <?php
-session_start(); // Continue la session.
+    session_start(); // Continue la session.
 
-if (!isset($_SESSION['username'])) { // Vérifie si l'utilisateur est connecté.
-    echo "Vous n'êtes pas connecté.";
-    exit();
+    if (!isset($_SESSION['username'])) { // Vérifie si l'utilisateur est connecté.
+        echo "Vous n'êtes pas connecté.";
+        exit();
 }
 ?>
 
