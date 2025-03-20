@@ -43,6 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($row && password_verify($password, $row['pass'])) {
             echo "<div id='result'>Connexion réussie !</div>";
+            header('Location : http://localhost:8080/pages/accueil.php');
+            exit();
             // Ici, vous pouvez rediriger l'utilisateur vers une autre page
             // header("Location: dashboard.php");
             // exit();
