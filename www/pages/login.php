@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = "lamp_mysql";
 $dbname = "phpsql";
 $userroot = "root";
