@@ -87,8 +87,8 @@
                 <input type="submit" value="Se connecter" onclick="showForm('login'); return false;">
             </form>
         </div>
-        
-        <div id="registerForm" style="display:none;">
+        <!--Boutons pour passer de S'enregistrer à Se connecter -->
+        <div id="registerForm" style="display:none;"> 
             <h2>Inscription</h2>
             <form method="post">
                 Identifiant <br>
