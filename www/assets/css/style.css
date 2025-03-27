@@ -6,15 +6,17 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+  flex-direction: column;
 }
 
-#formulaire {
+#formulaire, #buttons {
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 input[type="text"],
@@ -27,8 +29,30 @@ input[type="password"] {
   display: block;
 }
 
-input[type="submit"] {
+.valider {
   background: #b0edbc;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+  display: block;
+  text-align: center;
+}
+
+.valider:hover {
+  background: #218838;
+}
+
+#registerForm, #loginForm {
+  display: none;
+}
+
+.switch-form {
+  background: #007bff;
   color: white;
   border: none;
   padding: 10px;
@@ -37,6 +61,6 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
-  background: #218838;
+.switch-form:hover {
+  background: #0056b3;
 }
