@@ -87,10 +87,10 @@
                 <input type="submit" value="Se connecter" onclick="showForm('login'); return false;">
             </form>
         </div>
-        <!--Boutons pour passer de S'enregistrer à Se connecter -->
+        
         <div id="registerForm" style="display:none;"> 
             <h2>Inscription</h2>
-            <form method="post">
+            <form method="post" action="./accueil.php">
                 Identifiant <br>
                 <input type="text" name="username" required placeholder="Username"> <br><br>
                 Mot de passe <br>
@@ -104,7 +104,7 @@
         
         <div id="loginForm" style="display:none;">
             <h2>Connexion</h2>
-            <form method="post">
+            <form method="post" action="./accueil.php">
                 Identifiant <br>
                 <input type="text" name="username" required placeholder="Username"> <br><br>
                 Mot de passe <br>
